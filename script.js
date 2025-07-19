@@ -50,3 +50,9 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+// Reveal hero content on load
+window.addEventListener("DOMContentLoaded", () => {
+  const hero = document.querySelector(".hero");
+  if (hero) hero.classList.add("show");
+});
