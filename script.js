@@ -20,7 +20,10 @@ for (let i = 0; i < starCount; i++) {
 
 geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
 
-const material = new THREE.PointsMaterial({ color: 0xffffff, size: 1 });
+const material = new THREE.PointsMaterial({ color: 0xffffff, size: 1.5 });
+
+
+
 const stars = new THREE.Points(geometry, material);
 scene.add(stars);
 
