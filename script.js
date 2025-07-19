@@ -13,32 +13,58 @@ renderer.setPixelRatio(window.devicePixelRatio);
 camera.position.z = 5;
 
 // Generate star particles
-const starCount = 3000;
+const starCount = 4000;
 const geometry = new THREE.BufferGeometry();
 const positions = [];
+const sizes = [];
 
 for (let i = 0; i < starCount; i++) {
-  const x = (Math.random() - 0.5) * 200;
-  const y = (Math.random() - 0.5) * 200;
-  const z = -Math.random() * 200;
+  const x = (Math.random() - 0.5) * 100;
+  const y = (Math.random() - 0.5) * 100;
+  const z = (Math.random() - 0.5) * 100; // Keep stars all around
   positions.push(x, y, z);
+  sizes.push(Math.random() * 2 + .05); // Vary star size
 }
 
 geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+geometry.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
 
-const material = new THREE.PointsMaterial({
-  color: 0xffffff,
-  size: 30,
-  sizeAttenuation: true,
+// Define shader uniforms
+const uniforms = {
+  time: { value: 0.0 },
+  pointTexture: { value: new THREE.TextureLoader().load('star2.png') }
+};
+
+// ShaderMaterial for twinkling effect
+const material = new THREE.ShaderMaterial({
+  uniforms: uniforms,
+  vertexShader: `
+    attribute float size;
+    void main() {
+      vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+      gl_PointSize = size * (300.0 / length(mvPosition.xyz)); // Scales with depth
+      gl_Position = projectionMatrix * mvPosition;
+    }
+  `,
+  fragmentShader: `
+    uniform float time;
+    uniform sampler2D pointTexture;
+    void main() {
+      float alpha = .9 + 0.9 * sin(time + gl_FragCoord.x * 0.1 + gl_FragCoord.y * 0.1);
+      vec4 texColor = texture2D(pointTexture, gl_PointCoord);
+      if (texColor.a < 0.1) discard;
+      gl_FragColor = vec4(texColor.rgb, texColor.a * alpha);
+    }
+  `,
   transparent: true,
-  opacity: 0.8,
-  map: new THREE.TextureLoader().load('star.png'), // You’ll need to add this file
-  alphaTest: 0.5
+  blending: THREE.AdditiveBlending
 });
+
+// Add points to scene
 const stars = new THREE.Points(geometry, material);
 scene.add(stars);
 
-// Track mouse position
+// Mouse tracking for parallax effect
 let mouseX = 0;
 let mouseY = 0;
 document.addEventListener("mousemove", (event) => {
@@ -55,9 +81,8 @@ function animate() {
   camera.position.x += (mouseX * 5 - camera.position.x) * 0.02;
   camera.position.y += (-mouseY * 5 - camera.position.y) * 0.02;
 
-  const time = Date.now() * 0.002;
-  material.size = 0.7 + Math.sin(time) * 0.1;
-  
+  uniforms.time.value = Date.now() * 0.002;
+
   renderer.render(scene, camera);
 }
 animate();
@@ -67,18 +92,4 @@ window.addEventListener("resize", () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  stars.rotation.x = scrollY * 0.0002;
-  stars.rotation.y = scrollY * 0.0002;
-
-  // You can trigger class changes for hero
-  const hero = document.querySelector('.hero');
-  if (scrollY > 100) {
-    hero.classList.add('show');
-  } else {
-    hero.classList.remove('show');
-  }
 });
