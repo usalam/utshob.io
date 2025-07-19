@@ -1,7 +1,22 @@
-body {
-  background: black;
-  color: white;
-  font-family: sans-serif;
+.hero {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s ease-out;
   text-align: center;
-  padding-top: 20%;
+}
+
+.hero.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#hero-title {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
 }
