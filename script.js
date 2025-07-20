@@ -1,4 +1,9 @@
-// Set up scene, camera, renderer
+// Set up scene, camera, and renderer
+const canvas = document.getElementById('bg'); // Use the existing canvas from index.html
+const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setClearColor(0x000000, 1);
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -6,10 +11,6 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
-renderer.setPixelRatio(window.devicePixelRatio);
 camera.position.z = 5;
 
 // Generate star particles
@@ -93,3 +94,45 @@ window.addEventListener("resize", () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+// Highlight active section in sidebar
+const sections = document.querySelectorAll("section[id]");
+const navLinks = document.querySelectorAll(".sidebar a");
+
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      const id = entry.target.getAttribute("id");
+      const link = document.querySelector(`.sidebar a[href="#${id}"]`);
+
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => link.classList.remove("active"));
+        if (link) link.classList.add("active");
+      }
+    });
+  },
+  {
+    rootMargin: "-30% 0px -60% 0px", // triggers when section is in the middle
+    threshold: 0
+  }
+);
+
+sections.forEach(section => {
+  observer.observe(section);
+});
+
+// Fade in sections on scroll
+const animatedSections = document.querySelectorAll('.section');
+
+const fadeObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  },
+  { threshold: 0.1 }
+);
+
+animatedSections.forEach(section => fadeObserver.observe(section));

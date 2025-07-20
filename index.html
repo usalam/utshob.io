@@ -5,16 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Utshob.io</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <canvas id="bg"></canvas>
-
+  <nav class="sidebar">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#now">Now</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
   <div class="content">
-    <h1>Utshob.io</h1>
-    <p>Cool things are coming...</p>
+    <section class="section hero" id="home">
+      <h1>Utshob.io</h1>
+      <p>Exploring ideas. Building cool things. Always learning.</p>
+    </section>
+
+    <section class="section about" id ="about">
+      <h2>About Me</h2>
+      <p>
+        I'm Utshob — a data-driven builder and founder of Jamrock Digital. I work at the intersection of analytics, product, and engineering, with a background in ad tech, AI, and digital experimentation.
+      </p>
+      <p>
+        Outside of work, I dive (literally), learn new tech, and obsess over user experience, measurement, and strategy.
+      </p>
+    </section>
+
+    <section class="section projects" id ="projects">
+      <h2>Projects</h2>
+      <ul>
+        <li><strong>Jamrock Digital</strong> – Scaling podcast discovery for listeners and creators</li>
+        <li><strong>FlixBus Price Tracker</strong> – Python/AWS-based scraper for bus ticket deals</li>
+        <li><strong>Utshob.io</strong> – This site, built with Three.js and love</li>
+      </ul>
+    </section>
+
+    <section class="section now" id ="now">
+      <h2>Now</h2>
+      <p>
+        Exploring how to better detect invalid traffic and fraud in digital advertising, diving deeper into browser internals and real-time analytics infrastructure, and building Jamrock into a platform that helps creators scale intelligently.
+      </p>
+    </section>
+
+    <section class="section contact" id = "contact">
+      <h2>Contact Me</h2>
+      <p>DM me on <a href="https://www.linkedin.com/in/utshob" target="_blank">LinkedIn</a></p>
+      <p>Or send an email: <a href="mailto:us.alam58@gmail.com">us.alam58@gmail.com</a></p>
+    </section>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>    
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
