@@ -120,7 +120,7 @@ p, li {
   font-weight: 600;
 }
 
-.hero {
+.hero, .about, .projects, .now, .contact {
   padding: 0 2rem; /* override large vertical padding */
   min-height: 100vh;
   display: flex;
