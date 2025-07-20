@@ -66,6 +66,18 @@ p, li {
 }
 
 /* === Sidebar Navigation === */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+  font-size: 2rem;
+  color: #f0c674;
+  cursor: pointer;
+}
+
+/* === Sidebar Default (Desktop) === */
 .sidebar {
   position: fixed;
   top: 50%;
@@ -93,8 +105,8 @@ p, li {
   position: relative;
 }
 
-.sidebar a:hover,
-.sidebar a.active {
+.sidebar a.active,
+.sidebar a:hover {
   color: #f0c674;
 }
 
@@ -104,6 +116,43 @@ p, li {
   left: -1rem;
   color: #f0c674;
   font-size: 1.2rem;
+}
+
+/* === Mobile Styles === */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .sidebar.open {
+    transform: translateY(0);
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .sidebar li {
+    margin: 0;
+  }
+
+  .sidebar a::before {
+    display: none;
+  }
 }
 
 /* === Optional Header Bar === */
