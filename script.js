@@ -144,4 +144,12 @@ const sidebar = document.getElementById('sidebar');
 
 toggleBtn.addEventListener('click', () => {
   sidebar.classList.toggle('open');
+  toggleBtn.innerHTML = sidebar.classList.contains('open') ? '&times;' : '&#9776;';
+});
+
+document.querySelectorAll('.sidebar a').forEach(link => {
+  link.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    toggleBtn.innerHTML = '&#9776;';
+  });
 });
