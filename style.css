@@ -119,3 +119,12 @@ p, li {
   color: white;
   font-weight: 600;
 }
+
+.hero {
+  padding: 0 2rem; /* override large vertical padding */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
