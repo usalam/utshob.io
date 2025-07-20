@@ -124,35 +124,24 @@ p, li {
     display: block;
   }
 
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    transform: translateY(-100%);
-    transition: transform 0.3s ease-in-out;
-    padding: 2rem 1rem;
-    text-align: center;
-  }
+.sidebar ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0;
+  margin: 0;
+}
 
-  .sidebar.open {
-    transform: translateY(0);
-  }
+.sidebar a {
+  font-size: 1.5rem;
+  color: #ccc;
+  transition: color 0.2s ease;
+}
 
-  .sidebar ul {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .sidebar li {
-    margin: 0;
-  }
-
-  .sidebar a::before {
-    display: none;
-  }
+.sidebar a:hover,
+.sidebar a.active {
+  color: #f0c674;
+}
 }
 
 /* === Optional Header Bar === */
